@@ -1,4 +1,4 @@
-name: Extract MPD Data
+name: Extract Location URL
 
 on:
   workflow_dispatch:
@@ -13,42 +13,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Fetch MPD
+      - name: Extract Location
         run: |
-          mkdir -p output
+          curl -sI \
+            -A "OTT Navigator/1.7.2.2 (Linux;Android 11; en; 1nsjitl)" \
+            "https://vortexsu.azmodz.in/vortextv/serve/jionormal/678.mpd" \
+            | grep -i "^location:" \
+            | sed 's/^[Ll]ocation:[[:space:]]*//' \
+            | tr -d '\r' > location.txt
 
-          curl -L \
-            -A "OTT Navigator/1.7.2.2 (Linux; Android 11; en; 1nsjitl)" \
-            -D output/headers.txt \
-            -o output/678.mpd \
-            "https://vortexsu.azmodz.in/vortextv/serve/jionormal/678.mpd"
-
-      - name: Save Response Info
-        run: |
-          {
-            echo "=== Download Time ==="
-            date -u
-            echo
-            echo "=== SHA256 ==="
-            sha256sum output/678.mpd
-            echo
-            echo "=== File Size ==="
-            wc -c output/678.mpd
-          } > output/info.txt
-
-      - name: Commit Changes
+      - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions.com"
 
-          git add output/
+          git add location.txt
 
           if git diff --cached --quiet; then
             echo "No changes."
           else
-            git commit -m "Update MPD files"
+            git commit -m "Update location URL"
             git push
           fi
