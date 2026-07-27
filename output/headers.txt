@@ -1,0 +1,30 @@
+HTTP/2 302 
+date: Mon, 27 Jul 2026 04:53:35 GMT
+content-type: text/html; charset=UTF-8
+location: https://jiotvmblive.cdn.jio.com/bpk-tv/Udaya_Movies_MOB/WDVLive/index.mpd?__hdnea__=st=1785124840~exp=1785146440~acl=/*~hmac=40e33d483c76dfd4d20da680332829d5e33d60c42dee5f4542ef297a1a358d4f
+server: cloudflare
+access-control-allow-origin: *
+strict-transport-security: max-age=31536000
+cf-cache-status: DYNAMIC
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2Fe5xQVl5hIrUdF6bHVI2dzb7IhzyQBKypr2LY3lYH6aW3KH0YK%2F38QDpBofWlFCFVZzMD1jdjOZ5jO8MbkVRST3pJHQpn2D5pRtEuK4iFwa0lElQZC3GKUxHq3l%2BVuN3Govu4qY%3D"}]}
+cf-ray: a2190a8c9ae13c2f-IAD
+alt-svc: h3=":443"; ma=86400
+
+HTTP/2 451 
+server: Varnish
+retry-after: 0
+accept-ranges: bytes
+date: Mon, 27 Jul 2026 04:53:36 GMT
+via: 1.1 varnish
+x-served-by: cache-ewr-kewr1740052-EWR
+x-cache: MISS
+x-cache-hits: 0
+access-control-allow-methods: GET,HEAD,OPTIONS
+access-control-allow-origin: *
+access-control-allow-credentials: true
+access-control-max-age: 3600
+access-control-expose-headers: *
+access-control-allow-headers: *
+content-length: 0
+
