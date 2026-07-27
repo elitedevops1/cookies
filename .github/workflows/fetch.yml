@@ -2,8 +2,9 @@ name: Extract Location URL
 
 on:
   workflow_dispatch:
+  push:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "7,37 * * * *"
 
 permissions:
   contents: write
