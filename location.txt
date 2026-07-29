@@ -1,1 +1,1 @@
-https://jiotvmblive.cdn.jio.com/bpk-tv/Udaya_Movies_MOB/WDVLive/index.mpd?__hdnea__=st=1785312039~exp=1785333639~acl=/*~hmac=316d9e0df5e35272584d7e87316f8132c04129ef4eb1d58745a728ec329a58b8
+https://jiotvmblive.cdn.jio.com/bpk-tv/Udaya_Movies_MOB/WDVLive/index.mpd?__hdnea__=st=1785319242~exp=1785340842~acl=/*~hmac=baf955af34549ba92b73592e695a20245e3405689b69418af36a9bc87111bdf6
