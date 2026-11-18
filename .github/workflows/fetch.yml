@@ -21,10 +21,17 @@ jobs:
           persist-credentials: true
 
       - name: Download Playlist
+        env:
+          WORKER_URL: ${{ secrets.WORKER_URL }}
         run: |
           set -euo pipefail
 
           echo "Downloading playlist..."
+
+          if [ -z "$WORKER_URL" ]; then
+            echo "ERROR: WORKER_URL secret is missing!"
+            exit 1
+          fi
 
           curl --fail-with-body \
             --location \
@@ -32,7 +39,7 @@ jobs:
             --retry-delay 10 \
             --retry-all-errors \
             --max-time 120 \
-            "https://zeotvyash.streamxlivenow.workers.dev/" \
+            "$WORKER_URL" \
             -o kashmiri
 
           if [ ! -s kashmiri ]; then
