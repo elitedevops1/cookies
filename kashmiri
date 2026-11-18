@@ -1,5 +1,5 @@
 #EXTM3U x-tvg-url="https://sflex.fun/content-jiotvplus.media.jio/metadata/v2/livechannels/epg.xml.gz"
-# Generated: 18/11/2026, 12:52:06
+# Generated: 18/11/2026, 12:57:47
 
 
 
@@ -10068,19 +10068,19 @@ https://premiumplug.fun/tee/playlist.php/0-9-zeepunjabharyanahima.m3u8
 #EXTVLCOPT:http-origin=https://www.zee5.com
 https://premiumplug.fun/tee/playlist.php/0-9-9z583537.m3u8
 
-#EXTINF:-1 tvg-id="ev-0.6515489341707636" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.1e70c76d-2741-4018-a100-feb91e926445/1/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/freewithads/logos/channels-logo-white.png%7C0,0,1920,1080+0,0,1920,1080+1578,847,263,156_kv053498f62d21803ffcbf28da234cfe9f_SX624_FMjpg_.jpeg",Teremoana Teremoana v Hemi Ahio
+#EXTINF:-1 tvg-id="ev-0.13208989580476982" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.1e70c76d-2741-4018-a100-feb91e926445/1/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/a-f/freewithads/logos/channels-logo-white.png%7C0,0,1920,1080+0,0,1920,1080+1578,847,263,156_kv053498f62d21803ffcbf28da234cfe9f_SX624_FMjpg_.jpeg",Teremoana Teremoana v Hemi Ahio
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=99f2d8b38451875101393cfda6cc5e77:3d32bdfa5fe52cf74567eb20716b5a65
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 https://dash-ott.bia-cf.live.pv-cdn.net/pdx-nitro/live/clients/dash/enc/3akahygf9y/out/v1/cc0ca029222b46b3a36e610e0a85fe91/cenc.mpd
 
-#EXTINF:-1 tvg-id="ev-0.9719555904340347" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.0b14e4df-575d-41da-b093-5d743d359eac/2/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/s-z/willowtv/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1724,885,117,117_kvebed36e78eaa0330f200bb6045a52aca_SX624_FMjpg_.jpeg",Australia vs. England
+#EXTINF:-1 tvg-id="ev-0.5313450268121163" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.0b14e4df-575d-41da-b093-5d743d359eac/2/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/s-z/willowtv/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1724,885,117,117_kvebed36e78eaa0330f200bb6045a52aca_SX624_FMjpg_.jpeg",Australia vs. England
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=205451a6cd81dce284519a33dd57a1db:2dcfd1bbf6616d09b01d969efa0658a6
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
 https://dash-ott.bia-cf.live.pv-cdn.net/iad-nitro/live/clients/dash/enc/aywqinj3vc/out/v1/49441817748348bf8b20205da90af5fa/cenc.mpd
 
-#EXTINF:-1 tvg-id="ev-0.9219509661250237" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.5d1b6f08-0201-4db4-96bd-f867f7348b30/6/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/s-z/willowtv/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1724,885,117,117_kvebed36e78eaa0330f200bb6045a52aca_SX624_FMjpg_.jpeg",Sri Lanka tour of Pakistan 2026 - 2nd Test - Pakistan vs Sri Lanka
+#EXTINF:-1 tvg-id="ev-0.10501838901497385" group-title="LIVE SPORTS | STREAMX" group-logo="https://i.postimg.cc/3xnDC1d6/live-sports.png" tvg-logo="https://images-na.ssl-images-amazon.com/images/W/BW_MEDIAX_AVIF_MEASUREMENT_1306696-T4/images/S/le-target-images-prod/amzn1.dv.gti.5d1b6f08-0201-4db4-96bd-f867f7348b30/6/BOXART-16X9/en-US._UR1920,1080_CLs%7C1920,1080%7C/G/bundle/BottomRightCardGradient16x9.png,/G/01/digital/video/merch/subs/benefit-id/s-z/willowtv/logos/channels-logo-white-stacked.png%7C0,0,1920,1080+0,0,1920,1080+1724,885,117,117_kvebed36e78eaa0330f200bb6045a52aca_SX624_FMjpg_.jpeg",Sri Lanka tour of Pakistan 2026 - 2nd Test - Pakistan vs Sri Lanka
 #KODIPROP:inputstream.adaptive.license_type=clearkey
 #KODIPROP:inputstream.adaptive.license_key=a368bc0596cc6975605701aa79d01f3c:d514a032036589c2a3e4ea2d958793a3
 #KODIPROP:inputstream.adaptive.manifest_type=mpd
