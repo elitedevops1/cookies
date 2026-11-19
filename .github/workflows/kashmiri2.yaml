@@ -1,0 +1,116 @@
+
+name: Update Gulistan News M3U
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */2 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+
+      - name: Download Latest Gulistan M3U
+        run: |
+          set -e
+
+          curl --fail --silent --show-error --location \
+            --retry 3 \
+            --retry-delay 5 \
+            --output source.m3u \
+            "https://token24x7.drizzzydanny-f45.workers.dev/"
+
+          echo "Source downloaded successfully"
+
+          grep -q "__hdnea__=" source.m3u || {
+            echo "ERROR: Valid HDNEA token not found"
+            exit 1
+          }
+
+      - name: Update Only Gulistan Stream URL
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+
+          source_file = "source.m3u"
+          playlist_file = "Kashur.m3u"
+
+          target = "Gulistan_News_MOB/WDVLive/index.mpd"
+
+          if not os.path.exists(playlist_file):
+              sys.exit("ERROR: Kashur.m3u not found")
+
+          with open(source_file, "r", encoding="utf-8") as f:
+              source_lines = f.read().splitlines()
+
+          new_url = next(
+              (
+                  line.strip()
+                  for line in reversed(source_lines)
+                  if line.strip().startswith(("http://", "https://"))
+                  and target in line
+                  and "__hdnea__=" in line
+              ),
+              None
+          )
+
+          if not new_url:
+              sys.exit("ERROR: Latest Gulistan stream URL not found")
+
+          with open(playlist_file, "r", encoding="utf-8", newline="") as f:
+              lines = f.readlines()
+
+          matches = 0
+          updated_lines = []
+
+          for line in lines:
+              content = line.rstrip("\r\n")
+              ending = line[len(content):]
+
+              if target in content and content.startswith(("http://", "https://")):
+                  updated_lines.append(new_url + ending)
+                  matches += 1
+              else:
+                  updated_lines.append(line)
+
+          if matches != 1:
+              sys.exit(
+                  f"ERROR: Expected exactly 1 Gulistan URL, found {matches}. "
+                  "Playlist left unchanged."
+              )
+
+          with open(playlist_file, "w", encoding="utf-8", newline="") as f:
+              f.writelines(updated_lines)
+
+          print("SUCCESS: Only Gulistan News URL updated")
+          PY
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet -- Kashur.m3u; then
+            echo "No changes detected"
+            exit 0
+          fi
+
+          git add Kashur.m3u
+          git commit -m "Auto update Gulistan News HDNEA token"
+          git push origin main
+
+      - name: Cleanup
+        if: always()
+        run: rm -f source.m3u
