@@ -21,6 +21,36 @@ jobs:
           ref: main
           persist-credentials: true
 
+      - name: Locate Kashur Playlist
+        id: locate
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+
+          matches = []
+
+          for root, dirs, files in os.walk("."):
+              dirs[:] = [d for d in dirs if d != ".git"]
+
+              for filename in files:
+                  if filename.lower() == "kashur.m3u":
+                      matches.append(os.path.join(root, filename))
+
+          if len(matches) == 0:
+              sys.exit("ERROR: Kashur.m3u not found anywhere in repository")
+
+          if len(matches) > 1:
+              sys.exit("ERROR: Multiple Kashur.m3u files found: " + str(matches))
+
+          path = matches[0].removeprefix("./")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"playlist_path={path}\n")
+
+          print("Playlist found:", path)
+          PY
+
       - name: Download Latest Gulistan M3U
         run: |
           set -e
@@ -39,18 +69,16 @@ jobs:
           }
 
       - name: Update Only Gulistan Stream URL
+        env:
+          PLAYLIST: ${{ steps.locate.outputs.playlist_path }}
         run: |
           python3 - <<'PY'
           import os
           import sys
 
           source_file = "source.m3u"
-          playlist_file = "Kashur.m3u"
-
+          playlist_file = os.environ["PLAYLIST"]
           target = "Gulistan_News_MOB/WDVLive/index.mpd"
-
-          if not os.path.exists(playlist_file):
-              sys.exit("ERROR: Kashur.m3u not found")
 
           with open(source_file, "r", encoding="utf-8") as f:
               source_lines = f.read().splitlines()
@@ -79,7 +107,10 @@ jobs:
               content = line.rstrip("\r\n")
               ending = line[len(content):]
 
-              if target in content and content.startswith(("http://", "https://")):
+              if (
+                  content.startswith(("http://", "https://"))
+                  and target in content
+              ):
                   updated_lines.append(new_url + ending)
                   matches += 1
               else:
@@ -95,19 +126,24 @@ jobs:
               f.writelines(updated_lines)
 
           print("SUCCESS: Only Gulistan News URL updated")
+          print("Playlist:", playlist_file)
           PY
 
       - name: Commit and Push Changes
+        env:
+          PLAYLIST: ${{ steps.locate.outputs.playlist_path }}
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          if git diff --quiet -- Kashur.m3u; then
+          if git diff --quiet -- "$PLAYLIST"; then
             echo "No changes detected"
             exit 0
           fi
 
-          git add Kashur.m3u
+          git add -- "$PLAYLIST"
           git commit -m "Auto update Gulistan News HDNEA token"
           git push origin main
 
