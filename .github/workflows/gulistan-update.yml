@@ -4,7 +4,7 @@ name: Gulistan News Auto Update
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '17 */2 * * *'
 
 permissions:
   contents: write
@@ -21,28 +21,70 @@ jobs:
           ref: main
           persist-credentials: true
 
-      - name: Download Latest Gulistan News M3U
+      - name: Extract Fresh HDNEA Token
         run: |
           set -e
 
-          curl --fail --silent --show-error --location \
-            --retry 3 \
-            --retry-delay 5 \
-            --output Gulistan_News.m3u \
-            "https://token24x7.drizzzydanny-f45.workers.dev/"
+          SOURCE_URL="https://hjh-545.pages.dev/stream?id=gulistannews"
 
-          if ! grep -q "__hdnea__=" Gulistan_News.m3u; then
-            echo "ERROR: Valid HDNEA token not found"
-            exit 1
-          fi
+          curl --silent --show-error \
+            --max-redirs 0 \
+            --dump-header response_headers.txt \
+            --output /dev/null \
+            "$SOURCE_URL"
 
-          if ! grep -q "Gulistan_News_MOB/WDVLive/index.mpd" Gulistan_News.m3u; then
-            echo "ERROR: Gulistan News stream URL not found"
-            exit 1
-          fi
+          python3 - <<'PY'
+          import re
+          import sys
+          from urllib.parse import urljoin, urlparse, parse_qs
 
-          echo "Gulistan News playlist downloaded successfully"
-          cat Gulistan_News.m3u
+          source = "https://hjh-545.pages.dev/stream?id=gulistannews"
+
+          with open("response_headers.txt", "r", encoding="utf-8") as f:
+              headers = f.read()
+
+          locations = re.findall(
+              r"(?im)^Location:\s*(.*?)\s*$",
+              headers
+          )
+
+          if not locations:
+              sys.exit("ERROR: Redirect Location header not found")
+
+          location = urljoin(source, locations[-1])
+          query = parse_qs(urlparse(location).query)
+
+          token = query.get("__hdnea__", [None])[0]
+
+          if not token:
+              sys.exit("ERROR: HDNEA token not found in redirect URL")
+
+          if not re.fullmatch(r"[A-Za-z0-9_~=-]+", token):
+              sys.exit("ERROR: Invalid token format")
+
+          stream_url = (
+              "https://jiotvmblive.cdn.jio.com/"
+              "bpk-tv/Gulistan_News_MOB/WDVLive/index.mpd"
+              "?__hdnea__=" + token
+          )
+
+          playlist = """#EXTINF:-1 tvg-id="807" group-title="JioStarTv" tvg-logo="https://jiotvimages.cdn.jio.com/dare_images/images/Gulistan_News.png",Gulistan News
+          #KODIPROP:inputstream.adaptive.license_type=clearkey
+          #KODIPROP:inputstream.adaptive.license_key=33bd380c97d252a0b9835fda391d395a:555d0da3a0dbd38d02b7ecc29d003e23
+          #KODIPROP:inputstream.adaptive.manifest_type=mpd
+          """ + stream_url + "\n"
+
+          playlist = "\n".join(
+              line.lstrip()
+              for line in playlist.splitlines()
+          ) + "\n"
+
+          with open("Gulistan_News.m3u", "w", encoding="utf-8") as f:
+              f.write(playlist)
+
+          print("SUCCESS: Fresh Gulistan News token extracted")
+          print("SUCCESS: Gulistan_News.m3u created")
+          PY
 
       - name: Commit and Push
         run: |
@@ -60,3 +102,7 @@ jobs:
 
           git commit -m "Create or update Gulistan News playlist"
           git push origin main
+
+      - name: Cleanup
+        if: always()
+        run: rm -f response_headers.txt
